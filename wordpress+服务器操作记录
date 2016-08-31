@@ -1,0 +1,37 @@
+16/7/28
+问题：进入网站需要121.xxx.xxx.xxx/wordpress，想直接访问？
+解决方法1：通过修改wp-config.php文件来实现。
+https://segmentfault.com/q/1010000002605356
+解决方法2：通过修改根目录 
+
+方法一成功解决。
+
+8/1
+背景颜色：#abdda8
+固定连接问题，设置的文章名地址显示404错误
+解决：
+http://www.dabu.info/nginx-after-modifying-the-wordpress-permalink-causes-access-article-404.html
+还更改过nginx.conf.default文件，根据：http://bbs.qcloud.com/thread-3545-1-1.html，没有修改回来。
+
+8/8
+Mysql显示2002错误，无法登陆wordpress，显示无法连接数据库；
+
+
+1.修改了“phpMyAdmin/libraries”文件夹下的config.default.php文件中的$cfg['Servers'][$i]['host'] = 'localhost';
+修改为$cfg['Servers'][$i]['host'] = '127.0.0.1';
+
+2.2.将config.sample.inc.php复制成config.inc.php
+出现这个错误，表示没有连接到数据库。修改config.inc.php文件,代码如下
+ 代码如下	复制代码
+将$cfg['Servers'][$i]['host'] = 'localhost';
+改为$cfg['Servers'][$i]['host'] = '127.0.0.1';
+
+3修改了wp-config中的db-host为127.0.0.0
+昨晚上述修改，并没有起作用。
+然后改变套路，将新安装的wordpress删除，并且把上述更改撤销，最后重启云服务器，发现可以成功连接数据库。
+然后在mysql创建新的数据库gdb，并创建新的用户gy，赋予全部权限。接着，再次重新安装wordpress(重命名了wordpress文件夹)，
+此时成功实现两个wordpress安装在同一服务器上。
+
+4.成功安装了一款不刷新音乐播放插件，下载地址：http://www.zhangdee.net/wp-content/uploads/2016/05/lbg-audio3-html5.zip，
+使用教程：http://tieba.baidu.com/p/4567262584
+
